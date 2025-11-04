@@ -10,13 +10,15 @@
  * 5. Insight & Improvement Layer - Predictive analytics and optimization
  */
 
+import { domainColors } from './colorSystem';
+
 export const domainRegistry = {
   corporate: {
     id: 'corporate',
     name: 'Corporate',
     icon: 'Building2',
     color: 'red',
-    gradient: 'from-red-600 via-red-500 to-orange-600',
+    gradient: domainColors.corporate.gradient,
     description: 'Strategic direction, governance, and enterprise-wide initiatives',
     layers: {
       strategy: {
@@ -144,124 +146,12 @@ export const domainRegistry = {
     }
   },
 
-  analytics: {
-    id: 'analytics',
-    name: 'Enterprise Analytics',
-    icon: 'BarChart',
-    color: 'violet',
-    gradient: 'from-orange-600 via-orange-500 to-amber-500',
-    description: 'Cross-functional analytics and business intelligence',
-    layers: {
-      strategy: {
-        id: 'strategy',
-        name: 'Strategy Layer',
-        icon: 'Target',
-        color: 'purple-500',
-        modules: [
-          {
-            id: 1,
-            name: 'Data & Analytics Strategy',
-            description: 'Enterprise data strategy and governance',
-            status: 'Ready',
-            kpis: []
-          }
-        ]
-      },
-      planning: {
-        id: 'planning',
-        name: 'Planning Layer',
-        icon: 'ClipboardList',
-        color: 'blue-500',
-        modules: [
-          {
-            id: 1,
-            name: 'Data Architecture',
-            description: 'Data warehouse and lake design',
-            status: 'Ready',
-            kpis: []
-          },
-          {
-            id: 2,
-            name: 'KPI Framework',
-            description: 'Enterprise KPI standardization',
-            status: 'Ready',
-            kpis: []
-          }
-        ]
-      },
-      execution: {
-        id: 'execution',
-        name: 'Execution Layer',
-        icon: 'Settings',
-        color: 'cyan-500',
-        modules: [
-          {
-            id: 1,
-            name: 'BI Dashboards',
-            description: 'Business intelligence reporting',
-            status: 'Ready',
-            kpis: []
-          },
-          {
-            id: 2,
-            name: 'Data Pipelines',
-            description: 'ETL and data integration',
-            status: 'Ready',
-            kpis: []
-          }
-        ]
-      },
-      performance: {
-        id: 'performance',
-        name: 'Performance Layer',
-        icon: 'TrendingUp',
-        color: 'amber-500',
-        modules: [
-          {
-            id: 1,
-            name: 'Data Quality',
-            description: 'Data quality monitoring and remediation',
-            status: 'Ready',
-            kpis: [
-              { label: 'Data Quality', value: '96%' },
-              { label: 'Dashboards', value: '42' },
-              { label: 'Reports', value: '187' }
-            ]
-          }
-        ]
-      },
-      insights: {
-        id: 'insights',
-        name: 'Insight & Improvement Layer',
-        icon: 'Zap',
-        color: 'violet-500',
-        aiEnabled: true,
-        modules: [
-          {
-            id: 1,
-            name: 'Predictive Modeling',
-            description: 'AI/ML models and predictions',
-            status: 'In Design',
-            kpis: []
-          },
-          {
-            id: 2,
-            name: 'AI Governance',
-            description: 'AI model governance and ethics',
-            status: 'Planned',
-            kpis: []
-          }
-        ]
-      }
-    }
-  },
-
   finance: {
     id: 'finance',
     name: 'Finance',
     icon: 'DollarSign',
     color: 'blue',
-    gradient: 'from-blue-600 via-blue-500 to-indigo-500',
+    gradient: domainColors.finance.gradient,
     description: 'Financial planning, operations, and stewardship',
     layers: {
       strategy: {
@@ -419,7 +309,7 @@ export const domainRegistry = {
     name: 'Sales',
     icon: 'TrendingUp',
     color: 'green',
-    gradient: 'from-green-600 via-green-500 to-emerald-500',
+    gradient: domainColors.sales.gradient,
     description: 'Sales planning, execution, and performance management',
     layers: {
       strategy: {
@@ -880,7 +770,7 @@ export const domainRegistry = {
     name: 'Marketing',
     icon: 'Megaphone',
     color: 'yellow',
-    gradient: 'from-yellow-500 via-yellow-400 to-amber-400',
+    gradient: domainColors.marketing.gradient,
     description: 'Brand strategy, demand generation, and customer acquisition',
     layers: {
       strategy: {
@@ -981,7 +871,7 @@ export const domainRegistry = {
     name: 'Product',
     icon: 'Package',
     color: 'lime',
-    gradient: 'from-lime-500 via-lime-400 to-green-400',
+    gradient: domainColors.product.gradient,
     description: 'Product strategy, roadmapping, and lifecycle management',
     layers: {
       strategy: {
@@ -1071,7 +961,7 @@ export const domainRegistry = {
     name: 'Customer Success',
     icon: 'Heart',
     color: 'red',
-    gradient: 'from-cyan-500 via-cyan-400 to-sky-400',
+    gradient: domainColors.customersuccess.gradient,
     description: 'Customer retention, expansion, and advocacy',
     layers: {
       strategy: {
@@ -1169,7 +1059,7 @@ export const domainRegistry = {
     name: 'Human Resources',
     icon: 'Users',
     color: 'lime',
-    gradient: 'from-indigo-600 via-indigo-500 to-purple-500',
+    gradient: domainColors.hr.gradient,
     description: 'Talent strategy, workforce planning, and culture',
     layers: {
       strategy: {
@@ -1266,7 +1156,7 @@ export const domainRegistry = {
     name: 'Information Technology',
     icon: 'Server',
     color: 'slate',
-    gradient: 'from-indigo-700 via-indigo-600 to-violet-600',
+    gradient: domainColors.it.gradient,
     description: 'IT infrastructure, applications, and cybersecurity',
     layers: {
       strategy: {
@@ -1371,7 +1261,7 @@ export const domainRegistry = {
     name: 'Operations',
     icon: 'Cog',
     color: 'indigo',
-    gradient: 'from-purple-600 via-purple-500 to-violet-500',
+    gradient: domainColors.operations.gradient,
     description: 'Operational excellence and process optimization',
     layers: {
       strategy: {
@@ -1458,7 +1348,7 @@ export const domainRegistry = {
     name: 'Legal & Compliance',
     icon: 'Scale',
     color: 'stone',
-    gradient: 'from-violet-700 via-violet-600 to-purple-700',
+    gradient: domainColors.legal.gradient,
     description: 'Legal risk management and regulatory compliance',
     layers: {
       strategy: {
@@ -1543,6 +1433,204 @@ export const domainRegistry = {
             kpis: []
           }
         ]
+      }
+    }
+  },
+
+  strategy: {
+    id: 'strategy',
+    name: 'Strategy & Transformation',
+    icon: 'Target',
+    color: 'darkRed',
+    gradient: domainColors.strategy.gradient,
+    description: 'Corporate development, strategic planning, and transformation office',
+    layers: {
+      strategy: {
+        id: 'strategy',
+        name: 'Strategy Layer',
+        icon: 'Target',
+        color: 'purple-500',
+        modules: [{ id: 1, name: 'Strategic Planning', description: 'Enterprise strategy and planning', status: 'Ready', kpis: [] }]
+      }
+    }
+  },
+
+  risk: {
+    id: 'risk',
+    name: 'Risk, Audit & Security',
+    icon: 'Shield',
+    color: 'red',
+    gradient: domainColors.risk.gradient,
+    description: 'Enterprise risk management, audit, and security governance',
+    layers: {
+      strategy: {
+        id: 'strategy',
+        name: 'Strategy Layer',
+        icon: 'Target',
+        color: 'purple-500',
+        modules: [{ id: 1, name: 'Risk Framework', description: 'Enterprise risk management framework', status: 'Planned', kpis: [] }]
+      }
+    }
+  },
+
+  esg: {
+    id: 'esg',
+    name: 'ESG & Sustainability',
+    icon: 'Leaf',
+    color: 'orange',
+    gradient: domainColors.esg.gradient,
+    description: 'Environmental, social, and governance initiatives',
+    layers: {
+      strategy: {
+        id: 'strategy',
+        name: 'Strategy Layer',
+        icon: 'Target',
+        color: 'purple-500',
+        modules: [{ id: 1, name: 'ESG Strategy', description: 'Sustainability and ESG program management', status: 'In Design', kpis: [] }]
+      }
+    }
+  },
+
+  communications: {
+    id: 'communications',
+    name: 'Communications & IR',
+    icon: 'Megaphone',
+    color: 'amber',
+    gradient: domainColors.communications.gradient,
+    description: 'Corporate communications and investor relations',
+    layers: {
+      strategy: {
+        id: 'strategy',
+        name: 'Strategy Layer',
+        icon: 'Target',
+        color: 'purple-500',
+        modules: [{ id: 1, name: 'Communications Strategy', description: 'Internal and external communications', status: 'Planned', kpis: [] }]
+      }
+    }
+  },
+
+  partners: {
+    id: 'partners',
+    name: 'Partner & Channel',
+    icon: 'Handshake',
+    color: 'blue',
+    gradient: domainColors.partners.gradient,
+    description: 'Partner ecosystem and channel management',
+    layers: {
+      strategy: {
+        id: 'strategy',
+        name: 'Strategy Layer',
+        icon: 'Target',
+        color: 'purple-500',
+        modules: [{ id: 1, name: 'Partner Strategy', description: 'Partner program and ecosystem development', status: 'Planned', kpis: [] }]
+      }
+    }
+  },
+
+  customerexperience: {
+    id: 'customerexperience',
+    name: 'Customer Experience',
+    icon: 'Star',
+    color: 'deepIndigo',
+    gradient: domainColors.customerexperience.gradient,
+    description: 'Voice of customer and experience management',
+    layers: {
+      strategy: {
+        id: 'strategy',
+        name: 'Strategy Layer',
+        icon: 'Target',
+        color: 'purple-500',
+        modules: [{ id: 1, name: 'CX Strategy', description: 'Customer experience program and metrics', status: 'Planned', kpis: [] }]
+      }
+    }
+  },
+
+  engineering: {
+    id: 'engineering',
+    name: 'Engineering & R&D',
+    icon: 'Code',
+    color: 'violet',
+    gradient: domainColors.engineering.gradient,
+    description: 'Software engineering and research & development',
+    layers: {
+      strategy: {
+        id: 'strategy',
+        name: 'Strategy Layer',
+        icon: 'Target',
+        color: 'purple-500',
+        modules: [{ id: 1, name: 'Engineering Strategy', description: 'Technical architecture and innovation', status: 'Planned', kpis: [] }]
+      }
+    }
+  },
+
+  ai: {
+    id: 'ai',
+    name: 'AI & Automation',
+    icon: 'Bot',
+    color: 'fuchsia',
+    gradient: domainColors.ai.gradient,
+    description: 'AI/ML capabilities and automation office',
+    layers: {
+      strategy: {
+        id: 'strategy',
+        name: 'Strategy Layer',
+        icon: 'Target',
+        color: 'purple-500',
+        modules: [{ id: 1, name: 'AI Strategy', description: 'AI governance and automation roadmap', status: 'In Design', kpis: [] }]
+      }
+    }
+  },
+
+  quality: {
+    id: 'quality',
+    name: 'Quality & Release',
+    icon: 'CheckCircle',
+    color: 'purple',
+    gradient: domainColors.quality.gradient,
+    description: 'Quality assurance and release management',
+    layers: {
+      strategy: {
+        id: 'strategy',
+        name: 'Strategy Layer',
+        icon: 'Target',
+        color: 'purple-500',
+        modules: [{ id: 1, name: 'Quality Framework', description: 'QA standards and release processes', status: 'Planned', kpis: [] }]
+      }
+    }
+  },
+
+  learning: {
+    id: 'learning',
+    name: 'Learning & Development',
+    icon: 'GraduationCap',
+    color: 'fuchsia',
+    gradient: domainColors.learning.gradient,
+    description: 'Talent development and learning programs',
+    layers: {
+      strategy: {
+        id: 'strategy',
+        name: 'Strategy Layer',
+        icon: 'Target',
+        color: 'purple-500',
+        modules: [{ id: 1, name: 'L&D Strategy', description: 'Learning and talent development programs', status: 'Planned', kpis: [] }]
+      }
+    }
+  },
+
+  changemanagement: {
+    id: 'changemanagement',
+    name: 'Change Management',
+    icon: 'RefreshCw',
+    color: 'rose',
+    gradient: domainColors.changemanagement.gradient,
+    description: 'Organizational effectiveness and change management',
+    layers: {
+      strategy: {
+        id: 'strategy',
+        name: 'Strategy Layer',
+        icon: 'Target',
+        color: 'purple-500',
+        modules: [{ id: 1, name: 'Change Strategy', description: 'Change enablement and organizational design', status: 'Planned', kpis: [] }]
       }
     }
   },

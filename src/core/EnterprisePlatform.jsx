@@ -1,31 +1,62 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import {
   Building2, DollarSign, TrendingUp, Target, ClipboardList,
   Settings, Zap, Sun, Moon, Home, Megaphone, Package, Heart,
-  Server, Cog, Scale, BarChart3, Users, Activity, RefreshCw, AlertTriangle
+  Server, Cog, Scale, BarChart3, Users, Activity, RefreshCw, AlertTriangle,
+  Shield, Leaf, Handshake, Star, Code, Bot, CheckCircle, GraduationCap
 } from 'lucide-react';
 import { domainRegistry, getModulesByDomainAndLayer } from '../config/domainRegistry';
+import { fullSpectrumGradient, systemColors } from '../config/colorSystem';
+import { pillarRegistry, getDomainsByPillar } from '../config/pillarSystem';
 import { toast } from 'sonner';
 import SystemHealth from '../components/SystemHealth';
 import CommandCenterDashboard from '../components/CommandCenterDashboard';
 import GapAnalyzer from '../components/GapAnalyzer';
 
 const EnterprisePlatform = () => {
+  const [activePillar, setActivePillar] = useState(null); // null shows all domains
   const [activeDomain, setActiveDomain] = useState('corporate');
   const [activeLayer, setActiveLayer] = useState('strategy');
   const [activeModule, setActiveModule] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [systemView, setSystemView] = useState(null); // null, 'health', 'command-center', 'gaps'
+  const [systemView, setSystemView] = useState(null); // null, 'health', 'command-center', 'gaps', 'analytics'
+
+  // Apply dark mode class to document root
+  useEffect(() => {
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [isDarkMode]);
 
   const domain = domainRegistry[activeDomain];
   const layer = domain?.layers[activeLayer];
   const modules = getModulesByDomainAndLayer(activeDomain, activeLayer);
 
+  // Get filtered domains based on active pillar
+  const visibleDomains = activePillar
+    ? Object.values(domainRegistry).filter(d => getDomainsByPillar(activePillar).includes(d.id))
+    : Object.values(domainRegistry);
+
+  const handlePillarChange = (pillarId) => {
+    if (activePillar === pillarId) {
+      // Toggle off if clicking the same pillar
+      setActivePillar(null);
+      toast.success('Showing all domains');
+    } else {
+      setActivePillar(pillarId);
+      const pillar = pillarRegistry[pillarId];
+      toast.success(`Filtered to ${pillar.name}`);
+    }
+  };
+
   const handleDomainChange = (domainId) => {
     setActiveDomain(domainId);
     setActiveLayer('strategy'); // Reset to strategy layer
     setActiveModule(null);
+    setSystemView(null); // Clear system view when switching domains
     toast.success(`Switched to ${domainRegistry[domainId].name}`);
   };
 
@@ -54,7 +85,8 @@ const EnterprisePlatform = () => {
     const icons = {
       Building2, DollarSign, TrendingUp, Target, ClipboardList,
       Settings, Zap, Megaphone, Package, Heart, Server, Cog, Scale,
-      BarChart3, Users
+      BarChart3, Users, Shield, Leaf, Handshake, Star, Code, Bot,
+      CheckCircle, GraduationCap, RefreshCw
     };
     const Icon = icons[iconName] || Building2;
     return Icon;
@@ -69,7 +101,7 @@ const EnterprisePlatform = () => {
           <div className="px-6 py-4">
             <div className="flex items-center justify-between">
               <div>
-                <h1 className="text-4xl font-black bg-gradient-to-r from-red-500 via-orange-500 via-yellow-400 via-green-500 via-cyan-400 via-blue-600 via-indigo-600 to-violet-600 bg-clip-text text-transparent mb-1">
+                <h1 className={`text-4xl font-black bg-gradient-to-r ${fullSpectrumGradient} bg-clip-text text-transparent mb-1`}>
                   SPARCC Enterprise
                 </h1>
                 <span className="px-3 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 text-xs font-semibold rounded-full">
@@ -78,6 +110,30 @@ const EnterprisePlatform = () => {
               </div>
 
               <div className="flex items-center gap-4">
+                {/* Pillar Buttons */}
+                {Object.values(pillarRegistry).map((pillar) => {
+                  const PillarIcon = getIcon(pillar.icon);
+                  return (
+                    <motion.button
+                      key={pillar.id}
+                      onClick={() => handlePillarChange(pillar.id)}
+                      className={`flex items-center gap-3 px-6 py-3 rounded-lg transition-all min-w-[180px] border-2 ${
+                        activePillar === pillar.id
+                          ? `bg-gradient-to-r ${pillar.gradient} text-white shadow-2xl border-white/50`
+                          : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-xl border-gray-300 dark:border-gray-600'
+                      }`}
+                      whileHover={{ scale: 1.08, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <PillarIcon className="w-5 h-5 flex-shrink-0" />
+                      <span className="text-base font-bold whitespace-nowrap">{pillar.shortName}</span>
+                    </motion.button>
+                  );
+                })}
+
+                {/* Separator */}
+                <div className="h-10 w-px bg-gray-300 dark:bg-gray-600 mx-2"></div>
+
                 {/* System View Buttons */}
                 <motion.button
                   onClick={() => { setSystemView('health'); setActiveModule(null); }}
@@ -108,6 +164,20 @@ const EnterprisePlatform = () => {
                 </motion.button>
 
                 <motion.button
+                  onClick={() => { setSystemView('analytics'); setActiveModule(null); }}
+                  className={`flex items-center gap-3 px-6 py-3 rounded-lg transition-all min-w-[220px] border-2 ${
+                    systemView === 'analytics'
+                      ? 'bg-orange-500 text-white shadow-2xl border-orange-400'
+                      : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-xl border-gray-300 dark:border-gray-600'
+                  }`}
+                  whileHover={{ scale: 1.08, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <BarChart3 className="w-5 h-5 flex-shrink-0" />
+                  <span className="text-base font-bold whitespace-nowrap">Enterprise Analytics</span>
+                </motion.button>
+
+                <motion.button
                   onClick={() => { setSystemView('gaps'); setActiveModule(null); }}
                   className={`flex items-center gap-3 px-6 py-3 rounded-lg transition-all min-w-[180px] border-2 ${
                     systemView === 'gaps'
@@ -132,8 +202,8 @@ const EnterprisePlatform = () => {
           </div>
 
           {/* Domain Navigation */}
-          <div className="px-6 py-3 bg-gradient-to-r from-red-500 via-orange-500 via-yellow-400 via-green-500 via-cyan-400 via-blue-600 via-indigo-600 to-violet-600 flex items-center justify-center gap-4 overflow-x-auto">
-            {Object.values(domainRegistry).map((d) => {
+          <div className={`px-6 py-3 bg-gradient-to-r ${fullSpectrumGradient} flex items-center justify-center gap-4 overflow-x-auto`}>
+            {visibleDomains.map((d) => {
               const Icon = getIcon(d.icon);
               return (
                 <motion.button
@@ -237,6 +307,24 @@ const EnterprisePlatform = () => {
               <SystemHealth isDarkMode={isDarkMode} />
             ) : systemView === 'command-center' ? (
               <CommandCenterDashboard isDarkMode={isDarkMode} />
+            ) : systemView === 'analytics' ? (
+              <div className="p-8">
+                <div className={`bg-gradient-to-r ${systemColors.analytics.gradient} rounded-lg p-6 text-white mb-6`}>
+                  <div className="flex items-center gap-3">
+                    <BarChart3 className="w-12 h-12" />
+                    <div>
+                      <h1 className="text-3xl font-bold">Enterprise Analytics</h1>
+                      <p className="text-white/90 mt-1">Cross-functional analytics and business intelligence</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="bg-white dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+                  <p className="text-gray-600 dark:text-gray-400">
+                    📊 Enterprise Analytics dashboard will be implemented here with cross-domain KPIs,
+                    data quality metrics, BI dashboards, and predictive analytics.
+                  </p>
+                </div>
+              </div>
             ) : systemView === 'gaps' ? (
               <GapAnalyzer isDarkMode={isDarkMode} />
             ) : activeModule ? (
