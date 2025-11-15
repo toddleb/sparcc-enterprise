@@ -5,7 +5,7 @@ import {
   Filter, Search, Award, Target, Zap, CheckCircle, AlertCircle,
   MessageSquare, Calendar, ArrowRight, Eye, Heart, Send, User,
   Building, Trophy, ThumbsUp, Sparkles, BadgeCheck, Shield, Flame,
-  BarChart3, Activity, TrendingDown
+  BarChart3, Activity, TrendingDown, Lightbulb, Database, BookOpen
 } from 'lucide-react';
 import { BarChart, Bar, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { toast } from 'sonner';
@@ -13,9 +13,14 @@ import { mockReps, mockMissions, mockBids, mockEngagements } from '../data/liqui
 import MissionDetailModal from './MissionDetailModal';
 import RepProfileModal from './RepProfileModal';
 import LeaderboardPanel from './LeaderboardPanel';
+import IndustryIntelligenceHub from './IndustryIntelligenceHub';
+import CompanyIntelligenceCenter from './CompanyIntelligenceCenter';
+import MessagingCenter from './MessagingCenter';
+import KnowledgeBaseHub from './KnowledgeBaseHub';
+import DealPipelineTracker from './DealPipelineTracker';
 
 const LiquidSalesMarketplaceEnhanced = ({ isDarkMode }) => {
-  const [activeView, setActiveView] = useState('missions'); // 'missions', 'reps', 'my-bids', 'dashboard', 'leaderboard'
+  const [activeView, setActiveView] = useState('missions'); // 'missions', 'reps', 'my-bids', 'dashboard', 'leaderboard', 'industry-intel', 'company-intel', 'messages', 'knowledge', 'pipeline'
   const [selectedMission, setSelectedMission] = useState(null);
   const [selectedRep, setSelectedRep] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -52,7 +57,12 @@ const LiquidSalesMarketplaceEnhanced = ({ isDarkMode }) => {
       reps: 'Rep Marketplace',
       'my-bids': 'My Bids',
       dashboard: 'Dashboard',
-      leaderboard: 'Leaderboard'
+      leaderboard: 'Leaderboard',
+      'industry-intel': 'Industry Intelligence',
+      'company-intel': 'Company Intelligence',
+      messages: 'Messages',
+      knowledge: 'Knowledge Base',
+      pipeline: 'Deal Pipeline'
     };
     toast.success(`Switched to ${viewNames[view]}`);
   };
@@ -162,18 +172,23 @@ const LiquidSalesMarketplaceEnhanced = ({ isDarkMode }) => {
           </div>
 
           {/* View Tabs */}
-          <div className="flex gap-3">
+          <div className="flex gap-2 flex-wrap">
             {[
-              { id: 'missions', icon: Briefcase, label: 'Mission Marketplace' },
-              { id: 'reps', icon: Users, label: 'Rep Marketplace' },
+              { id: 'missions', icon: Briefcase, label: 'Missions' },
+              { id: 'reps', icon: Users, label: 'Reps' },
               { id: 'leaderboard', icon: Trophy, label: 'Leaderboard' },
+              { id: 'industry-intel', icon: Lightbulb, label: 'Industry Intel' },
+              { id: 'company-intel', icon: Database, label: 'Company Intel' },
+              { id: 'knowledge', icon: BookOpen, label: 'Playbooks' },
+              { id: 'pipeline', icon: Target, label: 'Pipeline' },
+              { id: 'messages', icon: MessageSquare, label: 'Messages' },
               { id: 'my-bids', icon: Send, label: 'My Bids' },
               { id: 'dashboard', icon: BarChart3, label: 'Dashboard' }
             ].map(tab => (
               <motion.button
                 key={tab.id}
                 onClick={() => handleViewChange(tab.id)}
-                className={`flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all ${
+                className={`flex items-center gap-2 px-4 py-2.5 rounded-lg font-semibold transition-all text-sm ${
                   activeView === tab.id
                     ? 'bg-white text-blue-600 shadow-lg'
                     : 'bg-white/10 text-white hover:bg-white/20'
@@ -181,7 +196,7 @@ const LiquidSalesMarketplaceEnhanced = ({ isDarkMode }) => {
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <tab.icon className="w-5 h-5" />
+                <tab.icon className="w-4 h-4" />
                 {tab.label}
               </motion.button>
             ))}
@@ -190,14 +205,19 @@ const LiquidSalesMarketplaceEnhanced = ({ isDarkMode }) => {
       </div>
 
       {/* Search & Filter Bar */}
-      {(activeView === 'missions' || activeView === 'reps') && (
+      {(activeView === 'missions' || activeView === 'reps' || activeView === 'industry-intel' || activeView === 'company-intel') && (
         <div className="max-w-7xl mx-auto px-6 py-6">
           <div className="flex gap-4">
             <div className="flex-1 relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
               <input
                 type="text"
-                placeholder={activeView === 'missions' ? 'Search missions...' : 'Search certified reps...'}
+                placeholder={
+                  activeView === 'missions' ? 'Search missions...' :
+                  activeView === 'reps' ? 'Search certified reps...' :
+                  activeView === 'industry-intel' ? 'Search industries...' :
+                  'Search companies...'
+                }
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 rounded-lg border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-800 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
@@ -601,6 +621,61 @@ const LiquidSalesMarketplaceEnhanced = ({ isDarkMode }) => {
                   </div>
                 </div>
               </div>
+            </motion.div>
+          )}
+
+          {activeView === 'industry-intel' && (
+            <motion.div
+              key="industry-intel"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <IndustryIntelligenceHub />
+            </motion.div>
+          )}
+
+          {activeView === 'company-intel' && (
+            <motion.div
+              key="company-intel"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <CompanyIntelligenceCenter />
+            </motion.div>
+          )}
+
+          {activeView === 'knowledge' && (
+            <motion.div
+              key="knowledge"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <KnowledgeBaseHub />
+            </motion.div>
+          )}
+
+          {activeView === 'pipeline' && (
+            <motion.div
+              key="pipeline"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <DealPipelineTracker currentRepId={currentRepId} />
+            </motion.div>
+          )}
+
+          {activeView === 'messages' && (
+            <motion.div
+              key="messages"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+            >
+              <MessagingCenter currentRepId={currentRepId} />
             </motion.div>
           )}
 
