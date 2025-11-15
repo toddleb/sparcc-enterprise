@@ -4,7 +4,8 @@ import {
   Building2, DollarSign, TrendingUp, Target, ClipboardList,
   Settings, Zap, Sun, Moon, Home, Megaphone, Package, Heart,
   Server, Cog, Scale, BarChart3, Users, Activity, RefreshCw, AlertTriangle,
-  Shield, Leaf, Handshake, Star, Code, Bot, CheckCircle, GraduationCap
+  Shield, Leaf, Handshake, Star, Code, Bot, CheckCircle, GraduationCap,
+  Sparkles
 } from 'lucide-react';
 import { domainRegistry, getModulesByDomainAndLayer } from '../config/domainRegistry';
 import { fullSpectrumGradient, systemColors } from '../config/colorSystem';
@@ -13,6 +14,7 @@ import { toast } from 'sonner';
 import SystemHealth from '../components/SystemHealth';
 import CommandCenterDashboard from '../components/CommandCenterDashboard';
 import GapAnalyzer from '../components/GapAnalyzer';
+import LiquidSalesMarketplace from '../components/LiquidSalesMarketplace';
 
 const EnterprisePlatform = () => {
   const [activePillar, setActivePillar] = useState(null); // null shows all domains
@@ -20,7 +22,7 @@ const EnterprisePlatform = () => {
   const [activeLayer, setActiveLayer] = useState('strategy');
   const [activeModule, setActiveModule] = useState(null);
   const [isDarkMode, setIsDarkMode] = useState(true);
-  const [systemView, setSystemView] = useState(null); // null, 'health', 'command-center', 'gaps', 'analytics'
+  const [systemView, setSystemView] = useState(null); // null, 'health', 'command-center', 'gaps', 'analytics', 'liquidsales'
 
   // Apply dark mode class to document root
   useEffect(() => {
@@ -191,6 +193,20 @@ const EnterprisePlatform = () => {
                   <span className="text-base font-bold whitespace-nowrap">Gap Analyzer</span>
                 </motion.button>
 
+                <motion.button
+                  onClick={() => { setSystemView('liquidsales'); setActiveModule(null); }}
+                  className={`flex items-center gap-3 px-6 py-3 rounded-lg transition-all min-w-[180px] border-2 ${
+                    systemView === 'liquidsales'
+                      ? 'bg-cyan-500 text-white shadow-2xl border-cyan-400'
+                      : 'bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 hover:shadow-xl border-gray-300 dark:border-gray-600'
+                  }`}
+                  whileHover={{ scale: 1.08, y: -2 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  <Sparkles className="w-5 h-5 flex-shrink-0" />
+                  <span className="text-base font-bold whitespace-nowrap">LiquidSales</span>
+                </motion.button>
+
                 <button
                   onClick={() => setIsDarkMode(!isDarkMode)}
                   className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
@@ -327,6 +343,8 @@ const EnterprisePlatform = () => {
               </div>
             ) : systemView === 'gaps' ? (
               <GapAnalyzer isDarkMode={isDarkMode} />
+            ) : systemView === 'liquidsales' ? (
+              <LiquidSalesMarketplace isDarkMode={isDarkMode} />
             ) : activeModule ? (
               <div className="p-8">
                 <div className={`bg-gradient-to-r ${domain?.gradient} rounded-lg p-6 text-white mb-6`}>
