@@ -14,7 +14,7 @@ import { toast } from 'sonner';
 import SystemHealth from '../components/SystemHealth';
 import CommandCenterDashboard from '../components/CommandCenterDashboard';
 import GapAnalyzer from '../components/GapAnalyzer';
-import LiquidSalesMarketplace from '../components/LiquidSalesMarketplace';
+import LiquidSalesMarketplaceEnhanced from '../components/LiquidSalesMarketplaceEnhanced';
 
 const EnterprisePlatform = () => {
   const [activePillar, setActivePillar] = useState(null); // null shows all domains
@@ -344,7 +344,7 @@ const EnterprisePlatform = () => {
             ) : systemView === 'gaps' ? (
               <GapAnalyzer isDarkMode={isDarkMode} />
             ) : systemView === 'liquidsales' ? (
-              <LiquidSalesMarketplace isDarkMode={isDarkMode} />
+              <LiquidSalesMarketplaceEnhanced isDarkMode={isDarkMode} />
             ) : activeModule ? (
               <div className="p-8">
                 <div className={`bg-gradient-to-r ${domain?.gradient} rounded-lg p-6 text-white mb-6`}>
